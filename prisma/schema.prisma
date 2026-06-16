@@ -1,0 +1,121 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum UserRole {
+  ADMIN
+  CLIENT
+  TEAM
+}
+
+enum ProjectStatus {
+  DISCOVERY
+  PROPOSAL
+  IN_PROGRESS
+  REVIEW
+  DELIVERED
+  SUPPORT
+  PAUSED
+}
+
+enum PaymentProvider {
+  STRIPE
+  MERCADO_PAGO
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+  CANCELLED
+}
+
+model User {
+  id            String     @id @default(cuid())
+  email         String     @unique
+  name          String?
+  role          UserRole   @default(CLIENT)
+  passwordHash  String?
+  clientProfile Client?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+}
+
+model Client {
+  id          String    @id @default(cuid())
+  userId      String?   @unique
+  name        String
+  company     String?
+  phone       String?
+  industry    String?
+  notes       String?
+  user        User?     @relation(fields: [userId], references: [id])
+  projects    Project[]
+  requests    DiagnosticRequest[]
+  payments    Payment[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Project {
+  id          String        @id @default(cuid())
+  clientId    String
+  title       String
+  summary     String?
+  status      ProjectStatus @default(DISCOVERY)
+  n8nWorkflow String?
+  budgetCents Int?
+  currency    String        @default("mxn")
+  client      Client        @relation(fields: [clientId], references: [id])
+  payments    Payment[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model DiagnosticRequest {
+  id           String   @id @default(cuid())
+  clientId     String?
+  name         String
+  email        String
+  phone        String
+  businessType String
+  message      String
+  services     String[]
+  source       String   @default("landing")
+  client       Client?  @relation(fields: [clientId], references: [id])
+  createdAt    DateTime @default(now())
+}
+
+model Payment {
+  id               String          @id @default(cuid())
+  clientId          String
+  projectId         String?
+  provider          PaymentProvider
+  status            PaymentStatus  @default(PENDING)
+  amountCents       Int
+  currency          String         @default("mxn")
+  externalPaymentId String?
+  checkoutUrl       String?
+  paidAt            DateTime?
+  client            Client         @relation(fields: [clientId], references: [id])
+  project           Project?       @relation(fields: [projectId], references: [id])
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+}
+
+model WebhookEvent {
+  id         String   @id @default(cuid())
+  provider   String
+  eventType  String?
+  externalId String?
+  payload    Json
+  processed  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+}

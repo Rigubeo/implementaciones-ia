@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans: "Satoshi", "Aptos", "Segoe UI", sans-serif;
+  --background: #f4f8fb;
+  --foreground: #061225;
+  --petrol: #063442;
+  --ink: #061225;
+  --ocean: #0a7cff;
+  --electric: #23a7ff;
+  --mint: #24d28f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 112px;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: rgba(35, 167, 255, 0.3);
+}
+
+.grid-surface {
+  background-image:
+    linear-gradient(rgba(6, 18, 37, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(6, 18, 37, 0.055) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.focus-ring:focus-visible {
+  outline: 3px solid rgba(35, 167, 255, 0.55);
+  outline-offset: 4px;
+}
+
+.section-pad {
+  padding: 104px 0;
+}
+
+.case-image-frame {
+  height: 144px;
+  width: 100%;
+  overflow: hidden;
+  background: #e8f0f7;
+}
+
+.case-image {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+}
+
+.hero-flow-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 620px;
+  object-fit: contain;
+}
+
+.brand-icon-lockup svg {
+  display: block;
+  max-height: 28px;
+  max-width: 72px;
+}
+
+.mobile-nav-scroll {
+  scrollbar-width: none;
+}
+
+.mobile-nav-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .section-pad {
+    padding: 72px 0;
+  }
+
+  .hero-flow-image {
+    max-height: 420px;
+  }
+}
