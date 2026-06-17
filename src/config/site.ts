@@ -24,7 +24,7 @@ export const siteConfig = {
       description: "Atención 24/7 para responder, filtrar, orientar y escalar conversaciones importantes."
     },
     {
-      title: "Automatizaciones n8n",
+      title: "Automatizaciones de procesos",
       description: "Flujos que conectan Telegram, WhatsApp, Sheets, Calendar, CRM, correo y documentos."
     },
     {

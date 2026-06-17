@@ -7,20 +7,27 @@ import { nodoChatSchema } from "@/lib/validation/nodo-chat";
 function getFallbackReply(message: string) {
   const normalized = message.toLowerCase();
 
-  if (normalized.includes("telegram")) {
-    return "Podemos conectar este chat con tu bot de Telegram mediante un webhook de n8n. Por ahora puedes abrir el bot demo para probar la conversación externa.";
+  if (
+    normalized.includes("agendar") ||
+    normalized.includes("agenda") ||
+    normalized.includes("cita") ||
+    normalized.includes("seguimiento") ||
+    normalized.includes("diagnóstico") ||
+    normalized.includes("diagnostico")
+  ) {
+    return "Perfecto. Para preparar tu diagnóstico, cuéntame brevemente: giro de tu negocio, qué proceso quieres automatizar y cuál es el mejor correo o medio para darte seguimiento.";
   }
 
-  if (normalized.includes("whatsapp")) {
-    return "WhatsApp sigue siendo una integración comercial posible para clientes, pero el demo de Nodo lo prepararemos primero con Telegram y n8n.";
+  if (normalized.includes("servicio") || normalized.includes("cotizar") || normalized.includes("cotización") || normalized.includes("cotizacion")) {
+    return "Claro. Puedo ayudarte a levantar la solicitud. Dime qué servicio necesitas, qué herramienta usas hoy y qué resultado esperas lograr para preparar el resumen.";
   }
 
   if (normalized.includes("secretaria") || normalized.includes("secretaría")) {
-    return "Una secretaría virtual puede atender 24/7, confirmar citas, registrar datos y escalar conversaciones importantes a tu equipo.";
+    return "Una secretaría virtual puede atender 24/7, agendar citas en calendario, crear archivos, organizar documentos, enviar recordatorios y dar seguimiento a clientes.";
   }
 
-  if (normalized.includes("n8n")) {
-    return "n8n será el puente entre la página, Telegram, tus bases de datos y las herramientas del negocio mediante webhooks.";
+  if (normalized.includes("automat") || normalized.includes("integr")) {
+    return "La automatización puede conectar la página, tus mensajes, bases de datos, calendarios y documentos para reducir trabajo manual y mejorar el seguimiento.";
   }
 
   return "Podemos revisar procesos repetitivos como agenda, seguimiento, captura de datos, reportes, recordatorios, atención a clientes y tareas administrativas.";
@@ -40,7 +47,7 @@ export async function POST(request: NextRequest) {
 
     return ok({
       reply: automation.reply ?? getFallbackReply(input.message),
-      source: automation.skipped ? "local" : "n8n",
+      source: automation.skipped ? "local" : "automation",
       telegramUrl: process.env.NEXT_PUBLIC_TELEGRAM_BOT_URL ?? "http://t.me/RigubeoDemoBot"
     });
   } catch (error) {

@@ -1,14 +1,16 @@
 import Image from "next/image";
-import { Bot, Zap } from "lucide-react";
+import { Zap } from "lucide-react";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { siteConfig } from "@/config/site";
 import { integrationIcons } from "@/components/brand/IntegrationIcons";
 
 const stack = [
   { label: "WhatsApp", icon: integrationIcons.whatsapp },
-  { label: "n8n", icon: integrationIcons.n8n },
-  { label: "Calendario", icon: integrationIcons.calendar },
-  { label: "Agente IA", icon: Bot }
+  { label: "Telegram", icon: integrationIcons.telegram },
+  { label: "Email", icon: integrationIcons.gmail },
+  { label: "Calendar", icon: integrationIcons.calendar },
+  { label: "Docs", icon: integrationIcons.docs },
+  { label: "Sheets", icon: integrationIcons.sheets }
 ];
 
 export function Hero() {
@@ -33,12 +35,12 @@ export function Hero() {
             <ButtonLink href={siteConfig.cta.demo}>Solicitar demostración</ButtonLink>
             <ButtonLink href="#servicios" variant="secondary">Ver soluciones</ButtonLink>
           </div>
-          <div className="hero-stack mt-8 grid max-w-2xl grid-cols-2 gap-3 sm:grid-cols-4 lg:flex lg:flex-wrap">
+          <div className="hero-stack mt-8 grid max-w-2xl grid-cols-2 gap-3 sm:grid-cols-3">
             {stack.map((item) => {
               const Icon = item.icon;
               return (
-                <div key={item.label} className="rounded-md border border-white/16 bg-[#081a31]/72 p-4 backdrop-blur lg:min-w-[124px]">
-                  <Icon className={item.label === "n8n" ? "mb-3 h-6 w-14" : "mb-3 h-6 w-6 text-electric"} aria-hidden="true" />
+                <div key={item.label} className="rounded-md border border-white/16 bg-[#081a31]/72 p-4 backdrop-blur">
+                  <Icon className="mb-3 h-7 w-7" aria-hidden="true" />
                   <p className="text-sm font-bold text-white">{item.label}</p>
                 </div>
               );
@@ -58,10 +60,10 @@ function HeroNodoVisual() {
     <div className="w-full animate-fade-up rounded-lg border border-white/18 bg-white/10 p-2 shadow-glow backdrop-blur-xl sm:p-3">
       <div className="overflow-hidden rounded-md border border-sky-100/15 bg-[#071a31]">
         <Image
-          src="/brand/hero-nodo-flow.png"
-          alt="Vista de Nodo atendiendo por WhatsApp y activando un flujo n8n conectado a herramientas de negocio"
-          width={1500}
-          height={1187}
+          src="/brand/hero-nodo-transformacion-negocio.png"
+          alt="Nodo transformando un entorno administrativo saturado en un panel ordenado con mensajes, agenda, tareas y métricas"
+          width={1674}
+          height={866}
           priority
           sizes="(max-width: 1024px) 100vw, 52vw"
           className="hero-flow-image"

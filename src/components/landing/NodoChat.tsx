@@ -2,39 +2,42 @@
 
 import Image from "next/image";
 import { MessageCircle, Send, Sparkles, X } from "lucide-react";
-import { useState } from "react";
-import { TelegramIcon } from "@/components/brand/TelegramIcon";
-import { siteConfig } from "@/config/site";
+import { useEffect, useState } from "react";
 
 type Message = {
   role: "nodo" | "user";
   text: string;
-  source?: "local" | "n8n";
+  source?: "local" | "automation";
 };
 
 type NodoChatResponse = {
   ok: boolean;
   data?: {
     reply: string;
-    source: "local" | "n8n";
+    source: "local" | "automation";
     telegramUrl: string;
   };
   error?: string;
 };
 
+type NodoChatOpenEvent = CustomEvent<{
+  message?: string;
+}>;
+
 const starterMessages: Message[] = [
   {
     role: "nodo",
-    text: "¡Hola! Soy Nodo. Puedo orientarte sobre agentes IA, Telegram, n8n, automatizaciones y páginas web para tu negocio.",
+    text: "¡Hola! Soy Nodo. Puedo orientarte sobre agentes IA, automatizaciones, secretarías virtuales y páginas web para tu negocio.",
     source: "local"
   }
 ];
 
 const quickQuestions = [
-  "¿Cómo funciona con Telegram?",
+  "Agendar cita o seguimiento",
+  "Solicitar servicio",
   "¿Qué puede automatizar mi negocio?",
   "Quiero una secretaría virtual",
-  "Necesito conectar n8n"
+  "Necesito conectar automatizaciones"
 ];
 
 function createSessionId() {
@@ -81,7 +84,7 @@ export function NodoChat() {
         ...current,
         {
           role: "nodo",
-          text: "No pude conectar con el servicio de chat. El bot de Telegram queda disponible como canal alterno.",
+          text: "No pude conectar con el servicio de chat. Puedes dejar tu solicitud aquí y la retomaremos para seguimiento.",
           source: "local"
         }
       ]);
@@ -89,6 +92,20 @@ export function NodoChat() {
       setIsSending(false);
     }
   }
+
+  useEffect(() => {
+    function handleOpen(event: Event) {
+      const customEvent = event as NodoChatOpenEvent;
+      setOpen(true);
+      if (customEvent.detail?.message) {
+        void sendMessage(customEvent.detail.message);
+      }
+    }
+
+    window.addEventListener("nodo-chat:open", handleOpen);
+    return () => window.removeEventListener("nodo-chat:open", handleOpen);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSending]);
 
   return (
     <div className="fixed inset-x-3 bottom-3 z-50 sm:inset-x-auto sm:bottom-5 sm:right-5">
@@ -104,7 +121,7 @@ export function NodoChat() {
                   <p className="font-black">Nodo</p>
                   <Sparkles size={15} className="text-mint" />
                 </div>
-                <p className="text-xs font-semibold text-mint">En línea · Preparado para n8n</p>
+                <p className="text-xs font-semibold text-mint">En línea · Diagnóstico web</p>
               </div>
             </div>
             <button
@@ -117,17 +134,6 @@ export function NodoChat() {
             </button>
           </header>
           <div className="max-h-[46dvh] space-y-3 overflow-y-auto bg-[#f5f8fb] px-4 py-4 sm:max-h-[430px]">
-            <a
-              href={siteConfig.telegramBotUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-3 rounded-md border border-sky-200 bg-white p-3 text-sm font-bold text-ink shadow-sm transition hover:border-ocean hover:text-ocean"
-            >
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#229ed9] text-white">
-                <TelegramIcon className="h-5 w-5" />
-              </span>
-              Abrir Nodo en Telegram
-            </a>
             {messages.map((message, index) => (
               <div key={`${message.role}-${index}`} className={message.role === "user" ? "flex justify-end" : "flex justify-start"}>
                 <div
@@ -138,7 +144,9 @@ export function NodoChat() {
                   }
                 >
                   {message.text}
-                  {message.source === "n8n" ? <span className="mt-2 block text-[11px] font-black uppercase tracking-[0.14em] text-mint">n8n</span> : null}
+                  {message.source === "automation" ? (
+                    <span className="mt-2 block text-[11px] font-black uppercase tracking-[0.14em] text-mint">Automatización</span>
+                  ) : null}
                 </div>
               </div>
             ))}
@@ -190,7 +198,7 @@ export function NodoChat() {
           </span>
           <span className="hidden text-left sm:block">
             <span className="block text-sm font-black">Habla con Nodo</span>
-            <span className="block text-xs font-semibold text-mint">Web + Telegram</span>
+            <span className="block text-xs font-semibold text-mint">Diagnóstico web</span>
           </span>
           <MessageCircle size={20} className="text-electric" />
         </button>

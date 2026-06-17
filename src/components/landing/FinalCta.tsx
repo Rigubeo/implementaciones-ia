@@ -1,6 +1,16 @@
-import { MessageCircle, PhoneCall } from "lucide-react";
-import { ButtonLink } from "@/components/ui/ButtonLink";
-import { siteConfig } from "@/config/site";
+"use client";
+
+import { ArrowRight, CalendarCheck } from "lucide-react";
+
+const agendaPrompt = "Quiero agendar un diagnóstico con Nodo para revisar qué procesos de mi negocio podemos automatizar.";
+
+function openNodoAgenda() {
+  window.dispatchEvent(
+    new CustomEvent("nodo-chat:open", {
+      detail: { message: agendaPrompt }
+    })
+  );
+}
 
 export function FinalCta() {
   return (
@@ -11,18 +21,19 @@ export function FinalCta() {
             <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-electric">Agenda diagnóstico</p>
             <h2 className="text-4xl font-black leading-tight md:text-6xl">¿Listo para automatizar tu negocio?</h2>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-200">
-              Agenda una llamada y revisamos qué procesos de tu negocio pueden automatizarse con IA.
+              Habla con Nodo, cuéntale qué necesitas automatizar y preparará la solicitud para que podamos darte seguimiento.
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row md:flex-col">
-            <ButtonLink href={siteConfig.cta.demo}>
-              <PhoneCall size={18} />
-              Agendar llamada
-            </ButtonLink>
-            <ButtonLink href={siteConfig.cta.whatsapp} variant="secondary">
-              <MessageCircle size={18} />
-              Enviar WhatsApp
-            </ButtonLink>
+            <button
+              type="button"
+              onClick={openNodoAgenda}
+              className="focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-ocean px-5 py-3 text-sm font-semibold text-white shadow-glow transition hover:bg-[#006ce0]"
+            >
+              <CalendarCheck size={18} />
+              Agendar con Nodo
+              <ArrowRight size={17} strokeWidth={2.4} />
+            </button>
           </div>
         </div>
       </div>

@@ -1,38 +1,14 @@
 import Image from "next/image";
-import { DatabaseZap, FileText, MessageSquareText } from "lucide-react";
+import { DatabaseZap } from "lucide-react";
 import { integrationIcons } from "@/components/brand/IntegrationIcons";
 
 const integrations = [
-  {
-    name: "Telegram y WhatsApp",
-    detail: "Conversaciones, seguimiento y recordatorios",
-    Icon: integrationIcons.whatsapp
-  },
-  {
-    name: "n8n",
-    detail: "Automatización visual por flujos y webhooks",
-    Icon: integrationIcons.n8n
-  },
-  {
-    name: "Google Calendar",
-    detail: "Agenda, confirmaciones y disponibilidad",
-    Icon: integrationIcons.calendar
-  },
-  {
-    name: "Google Sheets",
-    detail: "Registros, reportes y tableros operativos",
-    Icon: integrationIcons.sheets
-  },
-  {
-    name: "CRM y correo",
-    detail: "Leads, tareas, notificaciones y pipeline",
-    Icon: MessageSquareText
-  },
-  {
-    name: "Documentos",
-    detail: "Comprobantes, briefs y expedientes",
-    Icon: FileText
-  }
+  { name: "WhatsApp", detail: "Conversaciones y seguimiento", Icon: integrationIcons.whatsapp },
+  { name: "Telegram", detail: "Bot demo y atención conversacional", Icon: integrationIcons.telegram },
+  { name: "Email", detail: "Notificaciones, leads y pipeline", Icon: integrationIcons.gmail },
+  { name: "Google Calendar", detail: "Agenda, confirmaciones y disponibilidad", Icon: integrationIcons.calendar },
+  { name: "Google Docs", detail: "Documentos, briefs y expedientes", Icon: integrationIcons.docs },
+  { name: "Google Sheets", detail: "Registros, reportes y tableros operativos", Icon: integrationIcons.sheets }
 ];
 
 export function Integrations() {
@@ -42,7 +18,7 @@ export function Integrations() {
         <div className="relative overflow-hidden rounded-lg border border-line bg-cloud p-3">
           <Image
             src="/brand/nodo-automatizaciones-integraciones.png"
-            alt="Nodo conectando automatizaciones con Telegram, WhatsApp, calendario, Sheets, clientes y correo"
+            alt="Nodo conectando automatizaciones con Telegram, WhatsApp, calendario, hojas de cálculo, clientes y correo"
             width={1254}
             height={1254}
             sizes="(max-width: 1024px) 100vw, 40vw"
@@ -57,14 +33,14 @@ export function Integrations() {
             </div>
             <div className="flex items-center gap-2 text-sm font-bold text-slate-600">
               <DatabaseZap className="text-mint" size={18} />
-              Preparado para CRM, webhooks y base de datos.
+              Preparado para CRM, agenda y base de datos.
             </div>
           </div>
           <div className="grid gap-3 md:grid-cols-2">
             {integrations.map(({ name, detail, Icon }) => (
               <article key={name} className="flex items-center gap-4 rounded-lg border border-line bg-cloud p-4">
                 <div className="brand-icon-lockup flex h-12 w-16 shrink-0 items-center justify-center rounded-md bg-white shadow-sm">
-                  <Icon className="h-6 w-6 text-ocean" />
+                  <Icon className="h-7 w-7" />
                 </div>
                 <div>
                   <h3 className="font-black text-ink">{name}</h3>

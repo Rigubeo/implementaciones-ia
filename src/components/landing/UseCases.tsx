@@ -6,32 +6,32 @@ const cases = [
   {
     title: "Clínicas y consultorios",
     icon: Stethoscope,
-    image: "/brand/conceptual-whatsapp-agenda.png",
-    text: "Agenda, confirmación, recordatorios, preguntas frecuentes y seguimiento."
+    image: "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=900&q=80",
+    text: "Agenda, confirmación, recordatorios, preguntas frecuentes y seguimiento de pacientes."
   },
   {
     title: "Hoteles",
     icon: Hotel,
-    image: "/brand/conceptual-atencion-whatsapp.png",
-    text: "Respuestas inmediatas sobre disponibilidad, servicios y solicitudes."
+    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=900&q=80",
+    text: "Respuestas inmediatas sobre disponibilidad, servicios, horarios y solicitudes de huéspedes."
   },
   {
     title: "Cafeterías",
     icon: Coffee,
-    image: "/brand/conceptual-orden-conversaciones.png",
-    text: "Pedidos, promociones, reservas, feedback y clientes frecuentes."
+    image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=900&q=80",
+    text: "Pedidos, promociones, reservas, feedback y seguimiento a clientes frecuentes."
   },
   {
     title: "Contadores",
     icon: Calculator,
-    image: "/brand/conceptual-whatsapp-agenda.png",
-    text: "Recepción de documentos, recordatorios fiscales y control de pendientes."
+    image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=900&q=80",
+    text: "Recepción de documentos, recordatorios fiscales, control de pendientes y reportes."
   },
   {
     title: "Negocios locales",
     icon: Building2,
-    image: "/brand/industria-dashboard-ia.png",
-    text: "Automatización de ventas, consultas, agenda y reportes operativos."
+    image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=900&q=80",
+    text: "Automatización de ventas, consultas, agenda, seguimiento y reportes operativos."
   }
 ];
 
@@ -48,20 +48,22 @@ export function UseCases() {
           {cases.map((item) => {
             const Icon = item.icon;
             return (
-              <article key={item.title} className="overflow-hidden rounded-lg border border-line bg-white shadow-sm">
-                <div className="case-image-frame">
+              <article key={item.title} className="group overflow-hidden rounded-lg border border-line bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-panel">
+                <div className="relative h-52 overflow-hidden bg-ink">
                   <Image
                     src={item.image}
-                    alt=""
-                    width={520}
-                    height={300}
+                    alt={`Ejemplo visual para ${item.title.toLowerCase()}`}
+                    fill
                     sizes="(max-width: 768px) 100vw, 33vw"
-                    className="case-image"
+                    className="object-cover transition duration-500 group-hover:scale-105"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink/68 via-ink/10 to-transparent" />
+                  <div className="absolute bottom-4 left-4 flex h-11 w-11 items-center justify-center rounded-md bg-white text-ocean shadow-sm">
+                    <Icon size={23} />
+                  </div>
                 </div>
                 <div className="p-5">
-                  <Icon className="mb-4 text-ocean" size={24} />
-                  <h3 className="text-lg font-black">{item.title}</h3>
+                  <h3 className="text-lg font-black text-ink">{item.title}</h3>
                   <p className="mt-3 text-sm leading-6 text-slate-600">{item.text}</p>
                 </div>
               </article>

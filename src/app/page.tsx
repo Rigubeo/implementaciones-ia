@@ -1,5 +1,4 @@
 import { Benefits } from "@/components/landing/Benefits";
-import { FeaturedSolutions } from "@/components/landing/FeaturedSolutions";
 import { FinalCta } from "@/components/landing/FinalCta";
 import { Footer } from "@/components/landing/Footer";
 import { Hero } from "@/components/landing/Hero";
@@ -25,7 +24,6 @@ export default function Home() {
         <ProblemSolution />
         <UseCases />
         <Process />
-        <FeaturedSolutions />
         <PaymentsPortal />
         <Benefits />
         <FinalCta />

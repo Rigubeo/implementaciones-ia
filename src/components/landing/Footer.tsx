@@ -18,18 +18,18 @@ export function Footer() {
           <div>
             <h3 className="mb-4 font-black">Servicios</h3>
             <a className="block py-1 text-slate-400 hover:text-white" href="#servicios">Agentes IA</a>
-            <a className="block py-1 text-slate-400 hover:text-white" href="#servicios">n8n</a>
+            <a className="block py-1 text-slate-400 hover:text-white" href="#servicios">Automatizaciones</a>
             <a className="block py-1 text-slate-400 hover:text-white" href="#servicios">Landing pages</a>
           </div>
           <div>
             <h3 className="mb-4 font-black">Plataforma</h3>
             <a className="block py-1 text-slate-400 hover:text-white" href="#pagos">Pagos</a>
             <a className="block py-1 text-slate-400 hover:text-white" href="/portal">Portal clientes</a>
-            <a className="block py-1 text-slate-400 hover:text-white" href={siteConfig.cta.demo}>Agendar demo</a>
+            <a className="block py-1 text-slate-400 hover:text-white" href="#contacto">Agendar con Nodo</a>
           </div>
           <div>
             <h3 className="mb-4 font-black">Contacto</h3>
-            <a className="block py-1 text-slate-400 hover:text-white" href={siteConfig.cta.whatsapp}>WhatsApp</a>
+            <a className="block py-1 text-slate-400 hover:text-white" href="#contacto">Nodo web</a>
             <p className="py-1 text-slate-500">LinkedIn e Instagram próximamente</p>
             <p className="py-1 text-slate-500">Aviso de privacidad pendiente</p>
           </div>

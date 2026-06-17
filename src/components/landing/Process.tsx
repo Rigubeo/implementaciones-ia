@@ -1,8 +1,5 @@
-import { LifeBuoy, PenTool, Rocket, SearchCheck, ShieldCheck, TestTube2 } from "lucide-react";
+import Image from "next/image";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { siteConfig } from "@/config/site";
-
-const icons = [SearchCheck, PenTool, Rocket, TestTube2, ShieldCheck, LifeBuoy];
 
 export function Process() {
   return (
@@ -14,19 +11,15 @@ export function Process() {
           description="Primero entendemos el negocio, luego diseñamos el flujo, conectamos herramientas, probamos casos reales y dejamos soporte."
           tone="dark"
         />
-        <div className="mt-14 grid gap-4 md:grid-cols-3 lg:grid-cols-6">
-          {siteConfig.process.map((step, index) => {
-            const Icon = icons[index];
-            return (
-              <div key={step} className="rounded-lg border border-white/12 bg-white/7 p-5">
-                <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-md bg-electric/14 text-electric">
-                  <Icon size={22} />
-                </div>
-                <p className="mb-3 text-xs font-bold uppercase tracking-[0.16em] text-slate-400">Paso {index + 1}</p>
-                <h3 className="text-lg font-black">{step}</h3>
-              </div>
-            );
-          })}
+        <div className="mx-auto mt-12 max-w-[80rem] overflow-hidden rounded-[2rem] border border-white/14 bg-white/8 p-2 shadow-glow backdrop-blur xl:max-w-[64rem]">
+          <Image
+            src="/brand/nodo-proceso-paso-a-paso.png"
+            alt="Diagrama visual del proceso de trabajo: diagnóstico, diseño, implementación, pruebas, capacitación y soporte"
+            width={1674}
+            height={866}
+            sizes="(max-width: 1024px) 100vw, 1180px"
+            className="h-auto w-full rounded-[1.55rem] object-cover"
+          />
         </div>
       </div>
     </section>
