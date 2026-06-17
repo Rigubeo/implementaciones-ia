@@ -29,7 +29,20 @@ type NodoChatWebhookResponse = {
   reply?: string;
   message?: string;
   text?: string;
+  output?: string;
+  response?: string;
 };
+
+function extractNodoReply(rawResponse: string) {
+  if (!rawResponse.trim()) return undefined;
+
+  try {
+    const data = JSON.parse(rawResponse) as NodoChatWebhookResponse;
+    return data.reply ?? data.output ?? data.message ?? data.text ?? data.response;
+  } catch {
+    return rawResponse;
+  }
+}
 
 export async function sendNodoChatToN8n(payload: NodoChatInput) {
   const url = process.env.N8N_WEBHOOK_NODO_CHAT_URL;
@@ -54,10 +67,10 @@ export async function sendNodoChatToN8n(payload: NodoChatInput) {
     throw new Error(`n8n Nodo chat webhook failed with status ${response.status}`);
   }
 
-  const data = (await response.json().catch(() => ({}))) as NodoChatWebhookResponse;
+  const rawResponse = await response.text();
 
   return {
     skipped: false,
-    reply: data.reply ?? data.message ?? data.text
+    reply: extractNodoReply(rawResponse)
   };
 }
