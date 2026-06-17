@@ -15,7 +15,6 @@ type NodoChatResponse = {
   data?: {
     reply: string;
     source: "local" | "automation";
-    telegramUrl: string;
   };
   error?: string;
 };
@@ -84,7 +83,7 @@ export function NodoChat() {
         ...current,
         {
           role: "nodo",
-          text: "No pude conectar con el servicio de chat. Puedes dejar tu solicitud aquí y la retomaremos para seguimiento.",
+          text: "No pude conectar con el servicio de chat. Revisa que el workflow de Nodo esté escuchando y vuelve a intentar.",
           source: "local"
         }
       ]);
