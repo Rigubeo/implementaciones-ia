@@ -18,14 +18,12 @@ type MercedesResponse = {
 const CONNECTION_ERROR_MESSAGE =
   "No pude conectarme con Mercedes. Revise internet o intente de nuevo.";
 
-const DEFAULT_MESSAGE = "Listo.";
-
 const phaseLabel: Record<AppPhase, string> = {
   idle: "Listo",
   requesting: "Listo",
   recording: "Grabando",
-  processing: "Procesando",
-  waiting: "Esperando respuesta",
+  processing: "Ejecutando",
+  waiting: "Recibiendo",
   error: "Error"
 };
 
@@ -81,7 +79,6 @@ export function MercedesVoiceApp() {
   const [pin, setPin] = useState("");
   const [pinError, setPinError] = useState("");
   const [phase, setPhase] = useState<AppPhase>("idle");
-  const [message, setMessage] = useState(DEFAULT_MESSAGE);
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
@@ -103,7 +100,6 @@ export function MercedesVoiceApp() {
 
   function showError(errorMessage: string) {
     setPhase("error");
-    setMessage(errorMessage);
     speak(errorMessage);
   }
 
@@ -145,7 +141,6 @@ export function MercedesVoiceApp() {
       }
 
       setPhase("idle");
-      setMessage(responseMessage);
       speak(responseMessage);
     } catch {
       showError(CONNECTION_ERROR_MESSAGE);
@@ -171,7 +166,6 @@ export function MercedesVoiceApp() {
 
     try {
       setPhase("requesting");
-      setMessage("Solicitando permiso de micrófono...");
 
       const stream = await navigator.mediaDevices.getUserMedia({
         audio: {
@@ -184,7 +178,6 @@ export function MercedesVoiceApp() {
       if (!isPressingRef.current) {
         stream.getTracks().forEach((track) => track.stop());
         setPhase("idle");
-        setMessage(DEFAULT_MESSAGE);
         return;
       }
 
@@ -220,7 +213,6 @@ export function MercedesVoiceApp() {
 
         if (!shouldSend) {
           setPhase("idle");
-          setMessage(DEFAULT_MESSAGE);
           return;
         }
 
@@ -238,7 +230,6 @@ export function MercedesVoiceApp() {
 
       recorder.start();
       setPhase("recording");
-      setMessage("Grabando... suelte para enviar.");
     } catch {
       stopTracks();
       isRecordingRef.current = false;
@@ -257,7 +248,6 @@ export function MercedesVoiceApp() {
 
     if (shouldSend) {
       setPhase("processing");
-      setMessage("Procesando...");
     }
 
     recorder.stop();
@@ -326,9 +316,9 @@ export function MercedesVoiceApp() {
   const isBusy = phase === "requesting" || phase === "processing" || phase === "waiting";
   const isRecording = phase === "recording";
   const buttonLabel = isRecording
-    ? "Grabando... suelte para enviar"
+    ? "Suelte para enviar"
     : isBusy
-      ? "Procesando..."
+      ? "Espere"
       : "Mantener presionado para hablar";
 
   if (!isAuthorized) {
@@ -414,7 +404,7 @@ export function MercedesVoiceApp() {
               }`}
               id="mercedes-status"
             >
-              {message}
+              {phaseLabel[phase]}
             </p>
 
             <button
