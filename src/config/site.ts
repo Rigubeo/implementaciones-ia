@@ -3,8 +3,8 @@ import { whatsappLink } from "@/lib/utils";
 const demoUrl = process.env.NEXT_PUBLIC_DEMO_URL;
 
 export const siteConfig = {
-  name: "Implementaciones de IA",
-  shortName: "IA Implementaciones",
+  name: "Soluciones Tecnológicas para Todos",
+  shortName: "Soluciones Tecnológicas",
   telegramBotUrl: process.env.NEXT_PUBLIC_TELEGRAM_BOT_URL ?? "http://t.me/RigubeoDemoBot",
   cta: {
     demo: demoUrl && demoUrl.length > 0 ? demoUrl : "#contacto",
@@ -14,8 +14,7 @@ export const siteConfig = {
     { label: "Servicios", href: "#servicios" },
     { label: "Casos de uso", href: "#casos" },
     { label: "Proceso", href: "#proceso" },
-    { label: "Pagos", href: "#pagos" },
-    { label: "Portal", href: "/portal" },
+    { label: "Mi Panel", href: "/panel" },
     { label: "Contacto", href: "#contacto" }
   ],
   services: [
@@ -25,7 +24,7 @@ export const siteConfig = {
     },
     {
       title: "Automatizaciones de procesos",
-      description: "Flujos que conectan Telegram, WhatsApp, Sheets, Calendar, CRM, correo y documentos."
+      description: "Flujos que conectan Telegram, WhatsApp, Sheets, Calendar, sistemas de clientes, correo y documentos."
     },
     {
       title: "Secretarías virtuales",
@@ -40,7 +39,7 @@ export const siteConfig = {
     ["Pierdes mensajes fuera de horario", "Agente IA disponible 24/7 con respuestas consistentes."],
     ["Tu equipo repite tareas manuales", "Automatizaciones que capturan, organizan y notifican."],
     ["Tus clientes esperan respuesta", "Asistentes inteligentes que atienden en segundos."],
-    ["Tu información está desordenada", "Integraciones con hojas, calendarios, CRM y documentos."]
+    ["Tu información está desordenada", "Integraciones con hojas, calendarios, sistemas de clientes y documentos."]
   ],
   industries: [
     "Clínicas y consultorios",

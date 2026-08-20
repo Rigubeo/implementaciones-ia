@@ -22,9 +22,9 @@ export function Footer() {
             <a className="block py-1 text-slate-400 hover:text-white" href="#servicios">Landing pages</a>
           </div>
           <div>
-            <h3 className="mb-4 font-black">Plataforma</h3>
-            <a className="block py-1 text-slate-400 hover:text-white" href="#pagos">Pagos</a>
-            <a className="block py-1 text-slate-400 hover:text-white" href="/portal">Portal clientes</a>
+            <h3 className="mb-4 font-black">Mi Panel</h3>
+            <a className="block py-1 text-slate-400 hover:text-white" href="/iniciar-sesion">Iniciar sesión</a>
+            <a className="block py-1 text-slate-400 hover:text-white" href="/registro">Crear cuenta</a>
             <a className="block py-1 text-slate-400 hover:text-white" href="#contacto">Agendar con Nodo</a>
           </div>
           <div>

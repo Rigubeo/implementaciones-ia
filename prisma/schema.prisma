@@ -37,31 +37,54 @@ enum PaymentStatus {
   CANCELLED
 }
 
+enum SubscriptionStatus {
+  ACTIVE
+  PAUSED
+  CANCELLED
+  PAST_DUE
+}
+
+enum ReminderStatus {
+  SCHEDULED
+  SENT
+  CANCELLED
+}
+
+enum ReceiptType {
+  RECEIPT
+  INVOICE
+  PAYMENT_PROOF
+  OTHER
+}
+
 model User {
-  id            String     @id @default(cuid())
-  email         String     @unique
+  id            String   @id @default(cuid())
+  email         String   @unique
   name          String?
-  role          UserRole   @default(CLIENT)
+  role          UserRole @default(CLIENT)
   passwordHash  String?
   clientProfile Client?
-  createdAt     DateTime   @default(now())
-  updatedAt     DateTime   @updatedAt
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
 model Client {
-  id          String    @id @default(cuid())
-  userId      String?   @unique
-  name        String
-  company     String?
-  phone       String?
-  industry    String?
-  notes       String?
-  user        User?     @relation(fields: [userId], references: [id])
-  projects    Project[]
-  requests    DiagnosticRequest[]
-  payments    Payment[]
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id            String              @id @default(cuid())
+  userId        String?             @unique
+  name          String
+  company       String?
+  phone         String?
+  industry      String?
+  notes         String?
+  user          User?               @relation(fields: [userId], references: [id])
+  projects      Project[]
+  requests      DiagnosticRequest[]
+  payments      Payment[]
+  subscriptions Subscription[]
+  reminders     Reminder[]
+  receipts      Receipt[]
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
 }
 
 model Project {
@@ -94,20 +117,86 @@ model DiagnosticRequest {
 }
 
 model Payment {
-  id               String          @id @default(cuid())
+  id                String          @id @default(cuid())
   clientId          String
   projectId         String?
   provider          PaymentProvider
-  status            PaymentStatus  @default(PENDING)
+  status            PaymentStatus   @default(PENDING)
   amountCents       Int
-  currency          String         @default("mxn")
+  currency          String          @default("mxn")
   externalPaymentId String?
   checkoutUrl       String?
   paidAt            DateTime?
-  client            Client         @relation(fields: [clientId], references: [id])
-  project           Project?       @relation(fields: [projectId], references: [id])
-  createdAt         DateTime       @default(now())
-  updatedAt         DateTime       @updatedAt
+  client            Client          @relation(fields: [clientId], references: [id])
+  project           Project?        @relation(fields: [projectId], references: [id])
+  receipts          Receipt[]
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+}
+
+model Subscription {
+  id                     String             @id @default(cuid())
+  clientId               String
+  name                   String
+  description            String?
+  status                 SubscriptionStatus @default(ACTIVE)
+  amountCents            Int
+  currency               String             @default("usd")
+  billingInterval        String             @default("month")
+  billingDay             Int
+  nextBillingAt          DateTime
+  provider               PaymentProvider?
+  externalSubscriptionId String?
+  client                 Client             @relation(fields: [clientId], references: [id])
+  reminders              Reminder[]
+  createdAt              DateTime           @default(now())
+  updatedAt              DateTime           @updatedAt
+
+  @@unique([clientId, name])
+  @@index([clientId, status])
+  @@index([nextBillingAt])
+}
+
+model Reminder {
+  id             String         @id @default(cuid())
+  clientId       String
+  subscriptionId String?
+  title          String
+  message        String
+  daysBefore     Int?
+  scheduledFor   DateTime
+  status         ReminderStatus @default(SCHEDULED)
+  sentAt         DateTime?
+  client         Client         @relation(fields: [clientId], references: [id])
+  subscription   Subscription?  @relation(fields: [subscriptionId], references: [id])
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  @@unique([subscriptionId, daysBefore, scheduledFor])
+  @@index([clientId, status, scheduledFor])
+  @@index([status, scheduledFor])
+}
+
+model Receipt {
+  id             String      @id @default(cuid())
+  clientId       String
+  paymentId      String?
+  title          String
+  documentNumber String?
+  type           ReceiptType @default(RECEIPT)
+  amountCents    Int?
+  currency       String      @default("usd")
+  issuedAt       DateTime
+  storagePath    String      @unique
+  fileName       String
+  mimeType       String
+  sizeBytes      Int
+  client         Client      @relation(fields: [clientId], references: [id])
+  payment        Payment?    @relation(fields: [paymentId], references: [id])
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  @@index([clientId, issuedAt])
 }
 
 model WebhookEvent {

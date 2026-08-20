@@ -11,14 +11,14 @@ export function Navbar() {
         <Link href="/" className="flex items-center gap-3">
           <Image
             src="/brand/logo-implementaciones-ia.png"
-            alt="Logo Implementaciones de IA"
+            alt="Logo Soluciones Tecnológicas para Todos"
             width={40}
             height={40}
             className="rounded-full bg-white"
             priority
           />
           <span className="text-sm font-black uppercase tracking-[0.12em] text-white">
-            Implementaciones <span className="text-electric">IA</span>
+            Soluciones <span className="text-electric">Tecnológicas</span>
           </span>
         </Link>
         <div className="hidden items-center gap-7 lg:flex">

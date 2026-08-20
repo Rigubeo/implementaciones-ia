@@ -1,21 +1,22 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://solucionestecnologicasparatodos.com";
+const appUrl =
+  process.env.NEXT_PUBLIC_APP_URL ?? "https://solucionestecnologicasparatodos.com";
 
 export const metadata: Metadata = {
-  title: "Implementaciones de IA | Automatización para negocios",
+  title: "Soluciones Tecnológicas para Todos | IA y automatización",
   description:
-    "Automatizamos procesos con IA, agentes para WhatsApp, Telegram y sistemas de atención 24/7 para negocios locales y pequeñas empresas.",
+    "Automatizamos procesos, atención al cliente, agendas y tareas administrativas con soluciones de IA y desarrollo web para negocios.",
   metadataBase: new URL(appUrl),
   icons: {
     icon: "/icon.png",
     apple: "/apple-icon.png"
   },
   openGraph: {
-    title: "Implementaciones de IA",
+    title: "Soluciones Tecnológicas para Todos",
     description:
-      "Agentes IA, secretarías virtuales y automatizaciones para ahorrar tiempo, reducir costos y atender clientes 24/7.",
+      "Agentes IA, secretarías virtuales, automatizaciones y páginas web para ahorrar tiempo, reducir costos y atender mejor a tus clientes.",
     images: ["/brand/hero-nodo-transformacion-negocio.png"]
   }
 };
@@ -26,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="es" data-scroll-behavior="smooth">
       <body>{children}</body>
     </html>
   );

@@ -5,7 +5,6 @@ import { Hero } from "@/components/landing/Hero";
 import { Integrations } from "@/components/landing/Integrations";
 import { Navbar } from "@/components/landing/Navbar";
 import { NodoChat } from "@/components/landing/NodoChat";
-import { NodoTelegram } from "@/components/landing/NodoTelegram";
 import { PaymentsPortal } from "@/components/landing/PaymentsPortal";
 import { ProblemSolution } from "@/components/landing/ProblemSolution";
 import { Process } from "@/components/landing/Process";
@@ -19,7 +18,6 @@ export default function Home() {
       <main>
         <Hero />
         <Integrations />
-        <NodoTelegram />
         <Services />
         <ProblemSolution />
         <UseCases />
