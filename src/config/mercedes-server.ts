@@ -3,8 +3,8 @@
 // Si necesitas hacerlo rapido en local, puedes reemplazar los textos PEGAR_...
 // directamente aqui.
 export const N8N_WEBHOOK_URL =
-  process.env.MERCEDES_TEST ??
   process.env.MERCEDES_N8N_WEBHOOK_URL ??
+  process.env.MERCEDES_TEST ??
   "PEGAR_WEBHOOK_AQUI";
 
 export const WEBHOOK_TOKEN =
