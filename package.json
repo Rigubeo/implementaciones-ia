@@ -2,6 +2,15 @@
   "name": "implementaciones-ia-platform",
   "version": "0.1.0",
   "private": true,
+  "overrides": {
+    "postcss": "$postcss",
+    "@prisma/config": {
+      "deepmerge-ts": "8.0.2"
+    },
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "11.0.8"
+    }
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -25,7 +34,7 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "stripe": "^18.2.1",
-    "zod": "^3.25.56"
+    "zod": "4.6.7"
   },
   "devDependencies": {
     "@types/node": "^22.15.29",
@@ -34,7 +43,7 @@
     "autoprefixer": "^10.4.21",
     "eslint": "^9.28.0",
     "eslint-config-next": "15.5.28",
-    "postcss": "^8.5.4",
+    "postcss": "8.5.32",
     "prisma": "^6.9.0",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.8.3"
