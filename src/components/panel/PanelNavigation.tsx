@@ -4,6 +4,7 @@ import {
   BellRing,
   CreditCard,
   FileCheck2,
+  Gift,
   LayoutDashboard,
   Menu,
   Repeat2,
@@ -19,7 +20,8 @@ const links = [
   { href: "/panel/pagos", label: "Pagos únicos", icon: CreditCard },
   { href: "/panel/suscripciones", label: "Suscripciones", icon: Repeat2 },
   { href: "/panel/comprobantes", label: "Comprobantes", icon: FileCheck2 },
-  { href: "/panel/recordatorios", label: "Recordatorios", icon: BellRing }
+  { href: "/panel/recordatorios", label: "Recordatorios", icon: BellRing },
+  { href: "/panel/fidelidad", label: "Tarjeta de fidelidad", icon: Gift }
 ] as const;
 
 export function PanelNavigation() {

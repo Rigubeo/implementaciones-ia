@@ -5,7 +5,8 @@ import { createClient } from "@/lib/supabase/server";
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get("code");
-  const redirectTo = requestUrl.searchParams.get("next") ?? "/panel";
+  const requested = requestUrl.searchParams.get("next") ?? "/panel";
+  const redirectTo = requested.startsWith("/") && !requested.startsWith("//") && !requested.includes("\\") ? requested : "/panel";
 
   if (code) {
     const supabase = await createClient();
@@ -16,7 +17,7 @@ export async function GET(request: Request) {
         data: { user }
       } = await supabase.auth.getUser();
 
-      if (user) {
+      if (user && !redirectTo.startsWith("/tarjeta/")) {
         await ensureClientProfile(user);
       }
 

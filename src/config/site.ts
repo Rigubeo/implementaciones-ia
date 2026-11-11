@@ -7,33 +7,15 @@ export const siteConfig = {
   shortName: "Soluciones Tecnológicas",
   telegramBotUrl: process.env.NEXT_PUBLIC_TELEGRAM_BOT_URL ?? "http://t.me/RigubeoDemoBot",
   cta: {
-    demo: demoUrl && demoUrl.length > 0 ? demoUrl : "#contacto",
+    demo: demoUrl && demoUrl.length > 0 ? demoUrl : "/#contacto",
     whatsapp: whatsappLink("Hola, quiero automatizar mi negocio con IA.")
   },
   nav: [
-    { label: "Servicios", href: "#servicios" },
-    { label: "Casos de uso", href: "#casos" },
-    { label: "Proceso", href: "#proceso" },
+    { label: "Servicios", href: "/servicios" },
+    { label: "Casos de uso", href: "/#casos" },
+    { label: "Proceso", href: "/#proceso" },
     { label: "Mi Panel", href: "/panel" },
-    { label: "Contacto", href: "#contacto" }
-  ],
-  services: [
-    {
-      title: "Agentes IA",
-      description: "Atención 24/7 para responder, filtrar, orientar y escalar conversaciones importantes."
-    },
-    {
-      title: "Automatizaciones de procesos",
-      description: "Flujos que conectan Telegram, WhatsApp, Sheets, Calendar, sistemas de clientes, correo y documentos."
-    },
-    {
-      title: "Secretarías virtuales",
-      description: "Asistentes conversacionales que agendan, confirman, recuerdan y dan seguimiento."
-    },
-    {
-      title: "Landing pages y web apps",
-      description: "Sitios profesionales preparados para convertir visitantes en prospectos medibles."
-    }
+    { label: "Contacto", href: "/#contacto" }
   ],
   problems: [
     ["Pierdes mensajes fuera de horario", "Agente IA disponible 24/7 con respuestas consistentes."],

@@ -64,6 +64,9 @@ model User {
   role          UserRole @default(CLIENT)
   passwordHash  String?
   clientProfile Client?
+  loyaltyStaff  LoyaltyStaff[]
+  loyaltyCards  LoyaltyCard[]
+  loyaltyEvents LoyaltyStampEvent[]
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
@@ -83,8 +86,90 @@ model Client {
   subscriptions Subscription[]
   reminders     Reminder[]
   receipts      Receipt[]
+  loyaltyBusinesses LoyaltyBusiness[]
   createdAt     DateTime            @default(now())
   updatedAt     DateTime            @updatedAt
+}
+
+// Loyalty tables are server-only until explicit access controls are implemented.
+model LoyaltyBusiness {
+  id        String   @id @default(cuid())
+  clientId  String
+  name      String
+  slug      String   @unique
+  active    Boolean  @default(true)
+  client    Client   @relation(fields: [clientId], references: [id])
+  staff     LoyaltyStaff[]
+  programs  LoyaltyProgram[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([clientId])
+}
+
+model LoyaltyStaff {
+  id         String @id @default(cuid())
+  businessId String
+  userId     String
+  business   LoyaltyBusiness @relation(fields: [businessId], references: [id])
+  user       User @relation(fields: [userId], references: [id])
+  createdAt  DateTime @default(now())
+
+  @@unique([businessId, userId])
+  @@index([userId])
+}
+
+model LoyaltyProgram {
+  id             String @id @default(cuid())
+  businessId     String
+  name           String
+  reward         String
+  promotion      String?
+  theme          String @default("profesional")
+  stampsRequired Int
+  active         Boolean @default(true)
+  business       LoyaltyBusiness @relation(fields: [businessId], references: [id])
+  cards          LoyaltyCard[]
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([businessId, active])
+}
+
+model LoyaltyCard {
+  id        String @id @default(cuid())
+  programId String
+  userId    String
+  program   LoyaltyProgram @relation(fields: [programId], references: [id])
+  user      User @relation(fields: [userId], references: [id])
+  events    LoyaltyStampEvent[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([programId, userId])
+  @@index([userId])
+}
+
+enum LoyaltyEventType {
+  STAMP
+  REDEMPTION
+  ADJUSTMENT
+}
+
+model LoyaltyStampEvent {
+  id             String @id @default(cuid())
+  cardId         String
+  actorId        String
+  type           LoyaltyEventType
+  stampsDelta    Int
+  idempotencyKey String @unique
+  note           String?
+  card           LoyaltyCard @relation(fields: [cardId], references: [id])
+  actor          User @relation(fields: [actorId], references: [id])
+  createdAt      DateTime @default(now())
+
+  @@index([cardId, createdAt])
+  @@index([actorId])
 }
 
 model Project {

@@ -29,7 +29,7 @@ export function Hero() {
             Automatiza tu negocio con Inteligencia Artificial
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-200">
-            Creamos agentes IA, secretarías virtuales y automatizaciones que responden clientes, agendan citas y eliminan tareas repetitivas.
+            Creamos agentes de IA y tarjetas de fidelidad digitales para ayudarte a atender mejor y mantener cerca a tus clientes.
           </p>
           <div className="mt-7 flex flex-col gap-3 sm:flex-row">
             <ButtonLink href={siteConfig.cta.demo}>Solicitar demostración</ButtonLink>

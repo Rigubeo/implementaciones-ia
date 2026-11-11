@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { siteConfig } from "@/config/site";
 
 export function Footer() {
@@ -17,19 +18,18 @@ export function Footer() {
         <div className="grid gap-8 sm:grid-cols-3">
           <div>
             <h3 className="mb-4 font-black">Servicios</h3>
-            <a className="block py-1 text-slate-400 hover:text-white" href="#servicios">Agentes IA</a>
-            <a className="block py-1 text-slate-400 hover:text-white" href="#servicios">Automatizaciones</a>
-            <a className="block py-1 text-slate-400 hover:text-white" href="#servicios">Landing pages</a>
+            <a className="block py-1 text-slate-400 hover:text-white" href="/servicios/agentes">Agentes de IA</a>
+            <a className="block py-1 text-slate-400 hover:text-white" href="/servicios/tarjetas">Tarjetas de fidelidad</a>
           </div>
           <div>
             <h3 className="mb-4 font-black">Mi Panel</h3>
             <a className="block py-1 text-slate-400 hover:text-white" href="/iniciar-sesion">Iniciar sesión</a>
             <a className="block py-1 text-slate-400 hover:text-white" href="/registro">Crear cuenta</a>
-            <a className="block py-1 text-slate-400 hover:text-white" href="#contacto">Agendar con Nodo</a>
+            <Link className="block py-1 text-slate-400 hover:text-white" href="/#contacto">Agendar con Nodo</Link>
           </div>
           <div>
             <h3 className="mb-4 font-black">Contacto</h3>
-            <a className="block py-1 text-slate-400 hover:text-white" href="#contacto">Nodo web</a>
+            <Link className="block py-1 text-slate-400 hover:text-white" href="/#contacto">Nodo web</Link>
             <p className="py-1 text-slate-500">LinkedIn e Instagram próximamente</p>
             <p className="py-1 text-slate-500">Aviso de privacidad pendiente</p>
           </div>
