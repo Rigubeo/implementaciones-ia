@@ -12,6 +12,7 @@ export const siteConfig = {
   },
   nav: [
     { label: "Servicios", href: "/servicios" },
+    { label: "Portafolio", href: "/#portafolio" },
     { label: "Casos de uso", href: "/#casos" },
     { label: "Proceso", href: "/#proceso" },
     { label: "Mi Panel", href: "/panel" },

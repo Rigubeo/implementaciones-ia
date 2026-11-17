@@ -6,6 +6,7 @@ import { Integrations } from "@/components/landing/Integrations";
 import { Navbar } from "@/components/landing/Navbar";
 import { NodoChat } from "@/components/landing/NodoChat";
 import { PaymentsPortal } from "@/components/landing/PaymentsPortal";
+import { Portfolio } from "@/components/landing/Portfolio";
 import { ProblemSolution } from "@/components/landing/ProblemSolution";
 import { Process } from "@/components/landing/Process";
 import { Services } from "@/components/landing/Services";
@@ -19,6 +20,7 @@ export default function Home() {
         <Hero />
         <Integrations />
         <Services />
+        <Portfolio />
         <ProblemSolution />
         <UseCases />
         <Process />

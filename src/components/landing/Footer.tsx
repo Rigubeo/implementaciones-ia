@@ -20,6 +20,7 @@ export function Footer() {
             <h3 className="mb-4 font-black">Servicios</h3>
             <a className="block py-1 text-slate-400 hover:text-white" href="/servicios/agentes">Agentes de IA</a>
             <a className="block py-1 text-slate-400 hover:text-white" href="/servicios/tarjetas">Tarjetas de fidelidad</a>
+            <Link className="block py-1 text-slate-400 hover:text-white" href="/#portafolio">Portafolio</Link>
           </div>
           <div>
             <h3 className="mb-4 font-black">Mi Panel</h3>
