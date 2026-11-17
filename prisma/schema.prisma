@@ -139,14 +139,17 @@ model LoyaltyProgram {
 model LoyaltyCard {
   id        String @id @default(cuid())
   programId String
-  userId    String
+  userId    String?
+  holderEmail String
   program   LoyaltyProgram @relation(fields: [programId], references: [id])
-  user      User @relation(fields: [userId], references: [id])
+  user      User? @relation(fields: [userId], references: [id])
   events    LoyaltyStampEvent[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@unique([programId, userId])
+  @@unique([programId, holderEmail])
+  @@index([holderEmail])
   @@index([userId])
 }
 

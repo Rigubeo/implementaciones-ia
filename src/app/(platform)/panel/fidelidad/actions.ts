@@ -67,7 +67,7 @@ export async function addStamp(_previous: SaveState, form: FormData): Promise<Sa
       const business = await tx.loyaltyBusiness.findFirst({ where: { client: { userId: user.id }, active: true }, orderBy: { createdAt: "asc" }, include: { programs: { where: { active: true }, take: 1, orderBy: { createdAt: "asc" } } } });
       const program = business?.programs[0];
       if (!program) return "missing";
-      const card = await tx.loyaltyCard.findFirst({ where: { programId: program.id, ...(cardId.success ? { id: cardId.data } : { user: { email: { equals: email.data!, mode: "insensitive" } } }) } });
+      const card = await tx.loyaltyCard.findFirst({ where: { programId: program.id, ...(cardId.success ? { id: cardId.data } : { holderEmail: email.data!.toLowerCase() }) } });
       if (!card) return "missing";
       await tx.$queryRaw`SELECT id FROM "LoyaltyCard" WHERE id = ${card.id} FOR UPDATE`;
       const existing = await tx.loyaltyStampEvent.findUnique({ where: { idempotencyKey: requestId.data } });
@@ -96,8 +96,8 @@ export async function findScannedCard(cardId: string) {
   if (!business?.programs[0]) return null;
   const card = await prisma.loyaltyCard.findFirst({
     where: { id: cardId, programId: business.programs[0].id },
-    select: { id: true, user: { select: { email: true } }, program: { select: { stampsRequired: true, reward: true } }, events: { select: { stampsDelta: true } } }
+    select: { id: true, holderEmail: true, program: { select: { stampsRequired: true, reward: true } }, events: { select: { stampsDelta: true } } }
   });
   if (!card) return null;
-  return { id: card.id, email: card.user.email, stamps: card.events.reduce((sum, event) => sum + event.stampsDelta, 0), required: card.program.stampsRequired, reward: card.program.reward };
+  return { id: card.id, email: card.holderEmail, stamps: card.events.reduce((sum, event) => sum + event.stampsDelta, 0), required: card.program.stampsRequired, reward: card.program.reward };
 }

@@ -17,7 +17,7 @@ export async function GET(request: Request) {
         data: { user }
       } = await supabase.auth.getUser();
 
-      if (user && !redirectTo.startsWith("/tarjeta/")) {
+      if (user && !redirectTo.startsWith("/tarjeta/") && redirectTo !== "/mis-tarjetas") {
         await ensureClientProfile(user);
       }
 
